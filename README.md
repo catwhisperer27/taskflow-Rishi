@@ -5,8 +5,8 @@
 ---
 ## Feature Showcase
 
-![TaskBoard and Chat Interface](./test.png)
-*Figure 1: The Project Dashboard featuring the Kanban board, member activity, and real-time task notifications.*
+![TaskBoard Interface](./test.png)
+*Figure shows the Project Dashboard featuring the Kanban board, member activity, and real-time task notifications.*
 
 ### Core Features
 - **Project Kanban Board**: Real-time status updates with optimistic UI rendering.
