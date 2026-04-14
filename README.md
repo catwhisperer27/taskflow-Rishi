@@ -3,7 +3,7 @@
 **Stack:** Go · PostgreSQL · React · TypeScript · Tailwind CSS · Docker
 
 ---
-## Feature Showcase
+## Feature Showcase - Taskboard Interface
 
 ![TaskBoard Interface](./test.png)
 
