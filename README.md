@@ -1,17 +1,13 @@
 # TaskFlow
 
-A complete task management system built for a mid-level full-stack engineering assessment.
-
 **Stack:** Go · PostgreSQL · React · TypeScript · Tailwind CSS · Docker
 
 ---
 
 ## Running Locally
 
-One command starts the entire stack.
-
 ```bash
-git clone https://github.com/your-name/taskflow
+git clone https://github.com/catwhisperer27/taskflow-Rishi
 cd taskflow
 cp .env.example .env
 docker compose up --build
@@ -35,6 +31,12 @@ Password: password123
 
 Email:    sam@example.com
 Password: password123
+
+Soome example emails and their uniqueids to add to project and assign tasks:
+
+Alice Chenalice@example.com     alice
+Bob   Martinezbob@example.com   bob
+Sara  Johnsonsara@example.com   sara
 ```
 
 ---
