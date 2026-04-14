@@ -32,11 +32,18 @@ Password: password123
 Email:    sam@example.com
 Password: password123
 
-Soome example emails and their uniqueids to add to project and assign tasks:
+```
+
+---
+
+## Some example emails and their uniqueids to add to project and assign tasks:
+
+```
 
 Alice Chenalice@example.com     alice
 Bob   Martinezbob@example.com   bob
 Sara  Johnsonsara@example.com   sara
+
 ```
 
 ---
