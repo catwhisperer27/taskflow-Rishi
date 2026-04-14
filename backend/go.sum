@@ -1,0 +1,3 @@
+# This file is generated automatically.
+# Run `go mod tidy` to generate/update it locally.
+# Docker build generates it automatically during the build stage.
