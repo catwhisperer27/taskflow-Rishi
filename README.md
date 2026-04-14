@@ -8,7 +8,7 @@
 
 ```bash
 git clone https://github.com/catwhisperer27/taskflow-Rishi
-cd taskflow
+cd taskflow-Rishi
 cp .env.example .env
 docker compose up --build
 ```
