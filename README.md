@@ -3,6 +3,21 @@
 **Stack:** Go · PostgreSQL · React · TypeScript · Tailwind CSS · Docker
 
 ---
+## Feature Showcase
+
+![TaskBoard and Chat Interface](./test.png)
+*Figure 1: The Project Dashboard featuring the Kanban board, member activity, and real-time task notifications.*
+
+### Core Features
+- **Project Kanban Board**: Real-time status updates with optimistic UI rendering.
+- **My Tasks View**: A centralized dashboard for all tasks assigned across different projects.
+- **Real-time Notifications**: Backend-driven SSE (Server-Sent Events) for instant task assignment alerts.
+- **Bulk Actions**: Update multiple task statuses simultaneously to streamline workflow.
+- **Security First**: Rate-limited auth endpoints, secure headers, and transactional database integrity.
+
+---
+
+---
 
 ## Running Locally
 
