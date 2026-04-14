@@ -53,49 +53,49 @@ Sara Johnson  sara@example.com      sara
 
 ### Backend
 
-**Go + chi** — standard library HTTP with chi for routing. chi uses `net/http` interfaces throughout so middleware is composable without framework-specific types.
+**Go + chi** - standard library HTTP with chi for routing. chi uses `net/http` interfaces throughout so middleware is composable without framework-specific types.
 
-**Split handler files** — one file per resource: `auth_handler.go`, `project_handler.go`, `task_handler.go`. Each is independently readable and testable. A base.go holds shared helpers.
+**Split handler files** - one file per resource: `auth_handler.go`, `project_handler.go`, `task_handler.go`. Each is independently readable and testable. A base.go holds shared helpers.
 
-**pgx directly, no ORM** — the schema is relational and predictable. Raw SQL is clearer than ORM magic for joins and partial updates.
+**pgx directly, no ORM** - the schema is relational and predictable. Raw SQL is clearer than ORM magic for joins and partial updates.
 
-**Partial updates via CASE, not COALESCE** — `COALESCE($1, field)` silently ignores `false` for booleans. For nullable fields like `is_shared` we use `CASE WHEN $1::boolean IS NOT NULL THEN $1 ELSE field END` to correctly handle explicit false values.
+**Partial updates via CASE, not COALESCE** - `COALESCE($1, field)` silently ignores `false` for booleans. For nullable fields like `is_shared` we use `CASE WHEN $1::boolean IS NOT NULL THEN $1 ELSE field END` to correctly handle explicit false values.
 
-**Transactions** — project delete wraps task deletion + project deletion in a single transaction. A server crash between the two operations won't leave orphaned tasks.
+**Transactions** - project delete wraps task deletion + project deletion in a single transaction. A server crash between the two operations won't leave orphaned tasks.
 
-**Rate limiting** — `golang.org/x/time/rate` per-IP limiter on `/auth/register` and `/auth/login`. 10 burst, refills 1 token every 12 seconds (~5/min sustained). Brute force resistance without Redis dependency.
+**Rate limiting** - `golang.org/x/time/rate` per-IP limiter on `/auth/register` and `/auth/login`. 10 burst, refills 1 token every 12 seconds (~5/min sustained). Brute force resistance without Redis dependency.
 
-**Security headers** — `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `X-XSS-Protection`, `Referrer-Policy` on every response.
+**Security headers** - `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `X-XSS-Protection`, `Referrer-Policy` on every response.
 
-**API versioning** — all routes under `/api/v1/`. Unversioned `/health` for infrastructure health checks.
+**API versioning** - all routes under `/api/v1/`. Unversioned `/health` for infrastructure health checks.
 
-**`is_shared` projects** — a project is visible to a user if they own it, it's shared with the team, or they have an assigned task in it. All checks happen in a single efficient SQL query using `EXISTS`. `PATCH` and `DELETE` still require ownership.
+**`is_shared` projects** - a project is visible to a user if they own it, it's shared with the team, or they have an assigned task in it. All checks happen in a single efficient SQL query using `EXISTS`. `PATCH` and `DELETE` still require ownership.
 
 ### Frontend
 
-**React + TanStack Query** — all state is server state. TanStack Query handles caching, background refetch, and optimistic updates. No separate state store needed.
+**React + TanStack Query** - all state is server state. TanStack Query handles caching, background refetch, and optimistic updates. No separate state store needed.
 
-**Optimistic status updates** — task status changes update the UI immediately. The previous state is captured and restored on error.
+**Optimistic status updates** - task status changes update the UI immediately. The previous state is captured and restored on error.
 
-**Sonner toasts** — lightweight toast library. Success/error feedback on every create, update, delete, and bulk action.
+**Sonner toasts** - lightweight toast library. Success/error feedback on every create, update, delete, and bulk action.
 
-**Sidebar layout** — project list in the sidebar with shared badges. Dedicated "My Tasks" view showing all tasks assigned to the current user across all projects.
+**Sidebar layout** - project list in the sidebar with shared badges. Dedicated "My Tasks" view showing all tasks assigned to the current user across all projects.
 
-**Skeleton loaders** — shimmer placeholders on initial load instead of spinner-only states.
+**Skeleton loaders** - shimmer placeholders on initial load instead of spinner-only states.
 
-**No component library** — everything is Tailwind. Avoids bundle overhead and design constraints.
+**No component library** - everything is Tailwind. Avoids bundle overhead and design constraints.
 
 ### What I Left Out and Why
 
-**Refresh tokens** — 24-hour JWTs are appropriate scope. Production would need token rotation.
+**Refresh tokens** - 24-hour JWTs are appropriate scope. Production would need token rotation.
 
-**JWT blacklist** — logout just clears client storage. A Redis-backed blacklist would prevent reuse of stolen tokens until expiry.
+**JWT blacklist** - logout just clears client storage. A Redis-backed blacklist would prevent reuse of stolen tokens until expiry.
 
-**Full-text search** — the search bar does client-side filtering. PostgreSQL `tsvector` would be the natural next step for server-side search across large datasets.
+**Full-text search** - the search bar does client-side filtering. PostgreSQL `tsvector` would be the natural next step for server-side search across large datasets.
 
-**Pagination** — `LIMIT/OFFSET` query structure is in place in `ListTasks`. Adding `?page=&limit=` params is a small extension.
+**Pagination** - `LIMIT/OFFSET` query structure is in place in `ListTasks`. Adding `?page=&limit=` params is a small extension.
 
-**WebSockets** — SSE handles assignment notifications. Full bidirectional WebSockets would enable collaborative editing.
+**WebSockets** - SSE handles assignment notifications. Full bidirectional WebSockets would enable collaborative editing.
 
 **Tests** — handler logic is isolated from routing, making integration tests with `testcontainers-go` straightforward to add.
 
@@ -222,18 +222,3 @@ taskflow/
 
 ---
 
-## What I'd Do With More Time
-
-**JWT blacklist on logout** — Redis-backed set of revoked JTIs. Small Redis instance, big security win.
-
-**`testcontainers-go` integration tests** — spin up a real PostgreSQL, run migrations, test the full request/response cycle for auth and task CRUD.
-
-**Pagination** — `?page=&limit=` on list endpoints with `X-Total-Count` response header.
-
-**Assignee display** — currently shows an icon. Would fetch and display the user's name in the row and as a tooltip quick-reassign popover.
-
-**Drag-and-drop** — the board view uses manual column rendering. `@dnd-kit/core` would add drag-between-columns with the optimistic update pattern already in place.
-
-**Activity log** — `task_events` table recording status changes and assignments. Foundation for audit trail and "recently updated" views.
-
-**OpenAPI/Swagger** — `swaggo` annotations on handlers to generate interactive docs at `/swagger/index.html`.
