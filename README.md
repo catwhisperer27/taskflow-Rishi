@@ -11,7 +11,7 @@
 ### Core Features
 - **Project Kanban Board**: Real-time status updates with optimistic UI rendering.
 - **My Tasks View**: A centralized dashboard for all tasks assigned across different projects.
-- **Real-time Notifications**: Backend-driven SSE (Server-Sent Events) for instant task assignment alerts.
+- **Real-time Notifications**: Backend-driven SSE for instant task assignment alerts.
 - **Bulk Actions**: Update multiple task statuses simultaneously to streamline workflow.
 - **Security First**: Rate-limited auth endpoints, secure headers, and transactional database integrity.
 
