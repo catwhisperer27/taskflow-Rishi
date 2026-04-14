@@ -39,10 +39,11 @@ Password: password123
 ## Some example emails and their uniqueids to add to project and assign tasks:
 
 ```
+Name          Email                 UniqueIDs
 
-Alice Chenalice@example.com     alice
-Bob   Martinezbob@example.com   bob
-Sara  Johnsonsara@example.com   sara
+Alice Chen    alice@example.com     alice
+Bob Martinez  bob@example.com       bob
+Sara Johnson  sara@example.com      sara
 
 ```
 
